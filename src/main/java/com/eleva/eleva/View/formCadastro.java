@@ -27,7 +27,7 @@ public class formCadastro extends javax.swing.JFrame {
     String sResumoPessoal;
     String sNomeUsuario; 
     String pathCurriculo;
-    
+    String loginDuplo;
     /**
      * Creates new form formCadastro
      */
@@ -440,6 +440,19 @@ public class formCadastro extends javax.swing.JFrame {
         if (!new String(tfSenha.getPassword()).equals(new String(tfSenhaConfirma.getPassword()))) {
             JOptionPane.showMessageDialog(this, "As senhas não coincidem!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
+        }
+        
+        try {
+            loginDuplo = DatabaseManager.login(sEmail, sSenha);
+    
+            if (loginDuplo != null || loginDuplo.equals("Usuário não encontrado")) {
+                JOptionPane.showMessageDialog(this, "Usuario já existente! Utilize outros dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }  
+
+            } catch (Exception e) {
+                e.printStackTrace(); 
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
 
         return true; 

@@ -31,22 +31,21 @@ public class formPerfilCandidato extends javax.swing.JFrame {
      * Creates new form formPerfilCandidato
      */
     
-    String tipoUsuario;
-    public String emailUsuario;
+    public static String Usuario;
+    public static String emailUsuario;
     String curriculoCandidato;
     
-    public formPerfilCandidato() {
+    public formPerfilCandidato(String tipoUsuario, String email) {
         initComponents();
+        Usuario = tipoUsuario;
+        emailUsuario = email;
         VerificaVisivel();
         carregarDados(emailUsuario);
-        setaImagem();
+        setaImagem(); 
     }
     
      // Setter para receber o nome
-    public void setTipo(String tipo) {
-        this.tipoUsuario = tipo;
-    }
- 
+      
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -271,7 +270,7 @@ public class formPerfilCandidato extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void setaImagem(){
-        ImageIcon icon = new ImageIcon("C:/Users/gusta/OneDrive/Documentos/NetBeansProjects/Eleva/src/main/java/images/picpeople_9291864(2).png");
+        ImageIcon icon = new ImageIcon("C:/Users/gusta/OneDrive/Documentos/NetBeansProjects/Eleva/src/main/java/images/picpeople_9291864 (2).png");
 
         // Redimensionar a imagem para caber no JLabel
         Image image = icon.getImage().getScaledInstance(lblImagem.getWidth(), lblImagem.getHeight(), Image.SCALE_SMOOTH);
@@ -279,9 +278,9 @@ public class formPerfilCandidato extends javax.swing.JFrame {
         lblImagem.setIcon(new ImageIcon(image)); // Define a imagem na JLabel
     }
     private void VerificaVisivel(){
-        if (tipoUsuario.equals("Recrutador")){
+        if (Usuario.equals("Recrutador")){
             btnEdicao.setVisible(false); // Oculta o botão
-        }else if (tipoUsuario.equals("Candidato")){
+        }else if (Usuario.equals("Candidato")){
             btnCurriculo.setVisible(false); // Oculta o botão
             tfNome.setEnabled(true);  
             tfEmail.setEnabled(true);  
@@ -290,8 +289,7 @@ public class formPerfilCandidato extends javax.swing.JFrame {
             tfExperiencia.setEnabled(true);  
             tfResumo.setEnabled(true);  
             tfCEP.setEnabled(true);  
-        }
-            
+        } 
     }
     
     private void carregarDados(String email) {
@@ -333,11 +331,11 @@ public class formPerfilCandidato extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         
-        if (tipoUsuario.equals("Recrutador")){
+        if (Usuario.equals("Recrutador")){
             formRecrutador recrutador = new formRecrutador();
             recrutador.setVisible(true); // Torna a SegundaTela visível
         
-        }else if (tipoUsuario.equals("Candidato")){
+        }else if (Usuario.equals("Candidato")){
             formPrincipal principal = new formPrincipal();
             principal.setVisible(true); // Torna a SegundaTela visível
         }
@@ -373,7 +371,7 @@ public class formPerfilCandidato extends javax.swing.JFrame {
             }
         };
     }//GEN-LAST:event_btnCurriculoActionPerformed
-
+  
     /**
      * @param args the command line arguments
      */
@@ -400,13 +398,15 @@ public class formPerfilCandidato extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(formPerfilCandidato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new formPerfilCandidato().setVisible(true);
-            }
+        public void run() {
+              
+            new formPerfilCandidato(Usuario, emailUsuario).setVisible(true);
+        }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

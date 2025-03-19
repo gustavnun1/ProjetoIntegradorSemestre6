@@ -176,7 +176,7 @@ public class formLogin extends javax.swing.JFrame {
                 loginType = DatabaseManager.login(email, senha);
     
                 if (loginType == null || loginType.equals("Usuário não encontrado")) {
-                    JOptionPane.showMessageDialog(this, "Erro ao fazer login", "Erro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "E-mail e/ou senha incorretos ou inexistentes! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -185,9 +185,8 @@ public class formLogin extends javax.swing.JFrame {
                 if (loginType.equals("Recrutador")) {
                     formRecrutador telaRecruiter = new formRecrutador();
                     telaRecruiter.setVisible(true);
-                } else {
-                    formPerfilCandidato perfilCandidato = new formPerfilCandidato();
-                    perfilCandidato.setTipo("Candidato");
+                } else { 
+                    formPerfilCandidato perfilCandidato = new formPerfilCandidato("Candidato", email); 
                     perfilCandidato.setVisible(true);
                 }
     

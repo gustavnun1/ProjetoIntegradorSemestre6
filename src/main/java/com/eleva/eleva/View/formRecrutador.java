@@ -161,8 +161,7 @@ public class formRecrutador extends javax.swing.JFrame {
         String email = tbCandidatos.getValueAt(linhaSelecionada, 1).toString(); // Pega o e-mail da segunda coluna
 
         
-        formPerfilCandidato candidato = new formPerfilCandidato();
-        candidato.emailUsuario = email;
+        formPerfilCandidato candidato = new formPerfilCandidato("Recrutador", email); 
         candidato.setVisible(true); // Torna a SegundaTela visível
 
         // Fecha a TelaInicial
