@@ -30,7 +30,6 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnBuscaCurriculo = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -39,7 +38,6 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
         tfEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         tfAtuacao = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tfResumo = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
@@ -50,13 +48,12 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        labelCurriculo = new java.awt.Label();
         btnCadastro = new javax.swing.JButton();
-        tfCPF = new javax.swing.JFormattedTextField();
-        tfContato = new javax.swing.JFormattedTextField();
         tfCEP = new javax.swing.JFormattedTextField();
         tfNome = new javax.swing.JTextField();
         tfEndereco = new javax.swing.JTextField();
+        tfNome1 = new javax.swing.JTextField();
+        tfCNPJ = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,39 +71,25 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
         jPanel3.setBorder(new org.edisoncor.gui.util.DropShadowBorder());
         jPanel3.setLayout(null);
 
-        btnBuscaCurriculo.setBackground(new java.awt.Color(229, 229, 229));
-        btnBuscaCurriculo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnBuscaCurriculo.setForeground(new java.awt.Color(51, 51, 51));
-        btnBuscaCurriculo.setText("Buscar");
-        btnBuscaCurriculo.setBorder(null);
-        btnBuscaCurriculo.setBorderPainted(false);
-        btnBuscaCurriculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscaCurriculoActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnBuscaCurriculo);
-        btnBuscaCurriculo.setBounds(640, 390, 100, 20);
-
         jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Cadastro");
+        jLabel2.setText("Editar Perfil");
         jPanel3.add(jLabel2);
-        jLabel2.setBounds(430, 10, 120, 40);
+        jLabel2.setBounds(400, 20, 150, 40);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Senha");
         jLabel3.setToolTipText("");
         jPanel3.add(jLabel3);
-        jLabel3.setBounds(40, 200, 80, 16);
+        jLabel3.setBounds(50, 250, 80, 16);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Nome Completo");
+        jLabel4.setText("Nome Responsável");
         jLabel4.setToolTipText("");
         jPanel3.add(jLabel4);
-        jLabel4.setBounds(40, 60, 120, 16);
+        jLabel4.setBounds(50, 110, 120, 16);
 
         btnSair.setBackground(new java.awt.Color(242, 245, 247));
         btnSair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -120,40 +103,33 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnSair);
-        btnSair.setBounds(420, 490, 70, 30);
+        btnSair.setBounds(430, 490, 70, 30);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("E-mail");
         jLabel5.setToolTipText("");
         jPanel3.add(jLabel5);
-        jLabel5.setBounds(40, 130, 80, 16);
+        jLabel5.setBounds(50, 180, 80, 16);
 
         tfEmail.setBackground(new java.awt.Color(234, 237, 239));
         tfEmail.setForeground(new java.awt.Color(0, 0, 0));
         tfEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.add(tfEmail);
-        tfEmail.setBounds(40, 150, 280, 40);
+        tfEmail.setBounds(50, 200, 280, 40);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Confirme a senha");
         jLabel6.setToolTipText("");
         jPanel3.add(jLabel6);
-        jLabel6.setBounds(40, 270, 120, 16);
+        jLabel6.setBounds(50, 320, 120, 16);
 
         tfAtuacao.setBackground(new java.awt.Color(234, 237, 239));
         tfAtuacao.setForeground(new java.awt.Color(0, 0, 0));
         tfAtuacao.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.add(tfAtuacao);
-        tfAtuacao.setBounds(640, 80, 280, 40);
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Anexar curriculo (.PDF)");
-        jLabel7.setToolTipText("");
-        jPanel3.add(jLabel7);
-        jLabel7.setBounds(640, 340, 200, 16);
+        tfAtuacao.setBounds(650, 130, 280, 40);
 
         tfResumo.setBackground(new java.awt.Color(234, 237, 239));
         tfResumo.setColumns(20);
@@ -163,70 +139,66 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tfResumo);
 
         jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(640, 160, 280, 170);
+        jScrollPane1.setBounds(650, 210, 280, 170);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Área de atuação");
+        jLabel8.setText("Área de atuação empresarial");
         jLabel8.setToolTipText("");
         jPanel3.add(jLabel8);
-        jLabel8.setBounds(640, 60, 100, 16);
+        jLabel8.setBounds(650, 110, 190, 16);
 
         tfSenhaConfirma.setBackground(new java.awt.Color(234, 236, 238));
         tfSenhaConfirma.setForeground(new java.awt.Color(0, 0, 0));
         tfSenhaConfirma.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.add(tfSenhaConfirma);
-        tfSenhaConfirma.setBounds(40, 290, 280, 40);
+        tfSenhaConfirma.setBounds(50, 340, 280, 40);
 
         tfSenha.setBackground(new java.awt.Color(234, 236, 238));
         tfSenha.setForeground(new java.awt.Color(0, 0, 0));
         tfSenha.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.add(tfSenha);
-        tfSenha.setBounds(40, 220, 280, 40);
+        tfSenha.setBounds(50, 270, 280, 40);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("CPF");
+        jLabel9.setText("CNPJ");
         jLabel9.setToolTipText("");
         jPanel3.add(jLabel9);
-        jLabel9.setBounds(340, 60, 80, 16);
+        jLabel9.setBounds(350, 110, 80, 16);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("Contato");
+        jLabel10.setText("Empresa");
         jLabel10.setToolTipText("");
         jPanel3.add(jLabel10);
-        jLabel10.setBounds(340, 130, 80, 16);
+        jLabel10.setBounds(350, 180, 80, 16);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("Conte um pouco mais sobre você");
+        jLabel11.setText("Resumo sobre a empresa");
         jLabel11.setToolTipText("");
         jPanel3.add(jLabel11);
-        jLabel11.setBounds(640, 140, 200, 16);
+        jLabel11.setBounds(650, 190, 200, 16);
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Endereço");
         jLabel12.setToolTipText("");
         jPanel3.add(jLabel12);
-        jLabel12.setBounds(340, 270, 80, 16);
+        jLabel12.setBounds(350, 320, 80, 16);
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("CEP");
         jLabel13.setToolTipText("");
         jPanel3.add(jLabel13);
-        jLabel13.setBounds(340, 200, 80, 16);
-
-        labelCurriculo.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jPanel3.add(labelCurriculo);
-        labelCurriculo.setBounds(640, 360, 270, 22);
+        jLabel13.setBounds(350, 250, 80, 16);
 
         btnCadastro.setBackground(new java.awt.Color(229, 229, 229));
         btnCadastro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCadastro.setForeground(new java.awt.Color(51, 51, 51));
-        btnCadastro.setText("Confirmar Cadastro");
+        btnCadastro.setText("Confirmar Edição");
         btnCadastro.setBorder(null);
         btnCadastro.setBorderPainted(false);
         btnCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -235,29 +207,7 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnCadastro);
-        btnCadastro.setBounds(360, 430, 200, 50);
-
-        tfCPF.setBackground(new java.awt.Color(234, 237, 239));
-        tfCPF.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tfCPF.setForeground(new java.awt.Color(0, 0, 0));
-        try {
-            tfCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel3.add(tfCPF);
-        tfCPF.setBounds(340, 80, 280, 40);
-
-        tfContato.setBackground(new java.awt.Color(234, 237, 239));
-        tfContato.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tfContato.setForeground(new java.awt.Color(0, 0, 0));
-        try {
-            tfContato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel3.add(tfContato);
-        tfContato.setBounds(340, 150, 280, 40);
+        btnCadastro.setBounds(370, 430, 200, 50);
 
         tfCEP.setBackground(new java.awt.Color(234, 237, 239));
         tfCEP.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -268,19 +218,36 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jPanel3.add(tfCEP);
-        tfCEP.setBounds(340, 220, 280, 40);
+        tfCEP.setBounds(350, 270, 280, 40);
 
         tfNome.setBackground(new java.awt.Color(234, 237, 239));
         tfNome.setForeground(new java.awt.Color(0, 0, 0));
         tfNome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.add(tfNome);
-        tfNome.setBounds(40, 80, 280, 40);
+        tfNome.setBounds(50, 130, 280, 40);
 
         tfEndereco.setBackground(new java.awt.Color(234, 237, 239));
         tfEndereco.setForeground(new java.awt.Color(0, 0, 0));
         tfEndereco.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.add(tfEndereco);
-        tfEndereco.setBounds(340, 290, 280, 40);
+        tfEndereco.setBounds(350, 340, 280, 40);
+
+        tfNome1.setBackground(new java.awt.Color(234, 237, 239));
+        tfNome1.setForeground(new java.awt.Color(0, 0, 0));
+        tfNome1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.add(tfNome1);
+        tfNome1.setBounds(350, 200, 280, 40);
+
+        tfCNPJ.setBackground(new java.awt.Color(234, 237, 239));
+        tfCNPJ.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tfCNPJ.setForeground(new java.awt.Color(0, 0, 0));
+        try {
+            tfCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel3.add(tfCNPJ);
+        tfCNPJ.setBounds(350, 130, 280, 40);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -313,29 +280,6 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnBuscaCurriculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaCurriculoActionPerformed
-        JFileChooser chooser = new JFileChooser();
-
-        // Define um filtro para aceitar apenas arquivos PDF
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos PDF (*.pdf)", "pdf");
-        chooser.setFileFilter(filter);
-
-        // Abre o seletor de arquivos
-        int returnValue = chooser.showOpenDialog(null);
-
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File f = chooser.getSelectedFile();
-
-            // Garante que o arquivo selecionado seja realmente um PDF
-            if (f.getName().toLowerCase().endsWith(".pdf")) {
-                String filename = f.getAbsolutePath();
-                labelCurriculo.setText(filename);
-            } else {
-                JOptionPane.showMessageDialog(null, "Por favor, selecione um arquivo PDF válido.", "Arquivo inválido", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnBuscaCurriculoActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         formPrincipal principal1 = new formPrincipal();
@@ -398,7 +342,6 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscaCurriculo;
     private javax.swing.JButton btnCadastro;
     private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
@@ -411,21 +354,19 @@ public class formPerfilEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.awt.Label labelCurriculo;
     private javax.swing.JTextField tfAtuacao;
     private javax.swing.JFormattedTextField tfCEP;
-    private javax.swing.JFormattedTextField tfCPF;
-    private javax.swing.JFormattedTextField tfContato;
+    private javax.swing.JFormattedTextField tfCNPJ;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfNome1;
     private javax.swing.JTextArea tfResumo;
     private javax.swing.JPasswordField tfSenha;
     private javax.swing.JPasswordField tfSenhaConfirma;

@@ -5,6 +5,7 @@
 package com.eleva.eleva.View;
 
 import com.eleva.eleva.Controller.DatabaseManager;
+import com.eleva.eleva.Model.classValidacao;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +17,7 @@ public class formCadastroRecrutador extends javax.swing.JFrame {
     /**
      * Creates new form formCadastroRecrutador
      */
+    private classValidacao valida;
     String sAreaAtuacao;
     String sCEP;
     String sCNPJ;
@@ -97,7 +99,7 @@ public class formCadastroRecrutador extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Cadastro");
         jPanel3.add(jLabel2);
-        jLabel2.setBounds(430, 10, 120, 40);
+        jLabel2.setBounds(410, 10, 120, 40);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -125,7 +127,7 @@ public class formCadastroRecrutador extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnSair);
-        btnSair.setBounds(420, 490, 70, 30);
+        btnSair.setBounds(420, 460, 70, 30);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -241,7 +243,7 @@ public class formCadastroRecrutador extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnCadastroEmpresa);
-        btnCadastroEmpresa.setBounds(360, 430, 200, 50);
+        btnCadastroEmpresa.setBounds(360, 400, 200, 50);
 
         tfCNPJ.setBackground(new java.awt.Color(234, 237, 239));
         tfCNPJ.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -317,8 +319,8 @@ public class formCadastroRecrutador extends javax.swing.JFrame {
     }
     
     private void btnCadastroEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroEmpresaActionPerformed
-         if (!Validacao()) {
-             javax.swing.JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+         if (!valida.ValidacaoCadastroRecrutador(tfAreaAtuacao, tfCEP, tfCNPJ,tfResponsavel, tfEmail, tfEndereco, tfResumo, tfSenha, tfSenhaConfirma)) {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
         }else {
             // Se a validação passar, você pode prosseguir com o cadastro
             GuardarDados();
@@ -331,54 +333,7 @@ public class formCadastroRecrutador extends javax.swing.JFrame {
             } 
         }
     }//GEN-LAST:event_btnCadastroEmpresaActionPerformed
-    
-    public boolean Validacao() { 
-        
-        if (tfAreaAtuacao.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Área de Atuação é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfCEP.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo CEP é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfCNPJ.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfResponsavel.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfEmail.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Email é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfEndereco.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Endereço é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfResumo.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Resumo é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfSenha.getPassword().length == 0) {
-            JOptionPane.showMessageDialog(this, "Campo Senha é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfSenhaConfirma.getPassword().length == 0) {
-            JOptionPane.showMessageDialog(this, "Campo Confirmar Senha é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-         
-        // Verifica se as senhas coincidem
-        if (!new String(tfSenha.getPassword()).equals(new String(tfSenhaConfirma.getPassword()))) {
-            JOptionPane.showMessageDialog(this, "As senhas não coincidem!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        return true; 
-    }
+     
     /**
      * @param args the command line arguments
      */

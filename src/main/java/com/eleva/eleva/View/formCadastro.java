@@ -5,6 +5,7 @@
 package com.eleva.eleva.View;
 
 import com.eleva.eleva.Controller.DatabaseManager;
+import com.eleva.eleva.Model.classValidacao;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -16,6 +17,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class formCadastro extends javax.swing.JFrame {
     
+    private classValidacao valida;
     String sAreaAtuacao;
     String sCEP;
     String sCPF;
@@ -355,7 +357,7 @@ public class formCadastro extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnBuscaCurriculoActionPerformed
-
+    
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         formPrincipal principal1 = new formPrincipal();
         principal1.setVisible(true); // Torna a SegundaTela visível
@@ -377,86 +379,26 @@ public class formCadastro extends javax.swing.JFrame {
         sNomeUsuario = tfNome.getText();
         pathCurriculo = labelCurriculo.getText();
     }
-    
-    
-    
+     
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        if (!Validacao()) {
-            // Exibe uma mensagem de erro se os campos não estiverem preenchidos
-            javax.swing.JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }else {
-            // Se a validação passar, você pode prosseguir com o cadastro
-            GuardarDados();
-            try {
-                DatabaseManager.insertCandidatos(sAreaAtuacao, sCEP, sCPF, sContato, sEmail, sEndereco, sSenha, sResumoPessoal, sNomeUsuario, pathCurriculo);
-                javax.swing.JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!", "Sucesso", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception e) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Erro ao cadastrar: " + e.getMessage(), "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace(); // Para depuração no console
-            } 
-        }
-    }//GEN-LAST:event_btnCadastroActionPerformed
-    
-    public boolean Validacao() { 
+        if (!valida.ValidacaoCadastroFuncionario(tfAtuacao, tfCEP, tfCPF, 
+        tfContato, tfEmail, tfEndereco, tfResumo, tfSenha, tfSenhaConfirma)) { 
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } 
         
-        if (tfAtuacao.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Área de Atuação é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
+        if (!valida.ValidaEmail(tfEmail.getText())){
+            JOptionPane.showMessageDialog(this, "Digite um endereço de e-mail valido!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-        if (tfCEP.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo CEP é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfCPF.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfContato.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Contato é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfEmail.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Email é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfEndereco.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Endereço é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfResumo.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Resumo é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfSenha.getPassword().length == 0) {
-            JOptionPane.showMessageDialog(this, "Campo Senha é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (tfSenhaConfirma.getPassword().length == 0) {
-            JOptionPane.showMessageDialog(this, "Campo Confirmar Senha é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-         
-        // Verifica se as senhas coincidem
-        if (!new String(tfSenha.getPassword()).equals(new String(tfSenhaConfirma.getPassword()))) {
-            JOptionPane.showMessageDialog(this, "As senhas não coincidem!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
+        GuardarDados();
         try {
-            loginDuplo = DatabaseManager.login(sEmail, sSenha);
-    
-            if (loginDuplo != null || loginDuplo.equals("Usuário não encontrado")) {
-                JOptionPane.showMessageDialog(this, "Usuario já existente! Utilize outros dados.", "Erro", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }  
-
-            } catch (Exception e) {
-                e.printStackTrace(); 
-                JOptionPane.showMessageDialog(this, "Erro ao cadastrar! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-
-        return true; 
-    }
+            DatabaseManager.insertCandidatos(sAreaAtuacao, sCEP, sCPF, sContato, sEmail, sEndereco, sSenha, sResumoPessoal, sNomeUsuario, pathCurriculo);
+            javax.swing.JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!", "Sucesso", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Erro ao cadastrar: " + e.getMessage(), "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace(); // Para depuração no console
+        }  
+    }//GEN-LAST:event_btnCadastroActionPerformed
+     
     /**
      * @param args the command line arguments
      */

@@ -5,6 +5,9 @@
 package com.eleva.eleva.View;
 
 import com.eleva.eleva.Controller.DatabaseManager;
+import com.eleva.eleva.Model.classValidacao;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,11 +19,13 @@ public class formLogin extends javax.swing.JFrame {
     /**
      * Creates new form formLogin
      */
+    private classValidacao validacao;
     String email;
     String senha;
-    String loginType;
+    String loginType; 
     public formLogin() {
-        initComponents();
+        initComponents(); 
+        validacao = new classValidacao(); // Inicializa o objeto validacao
     }
 
     /**
@@ -166,54 +171,58 @@ public class formLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+      
         if (!ValidacaoLogin()) {
             // Exibe uma mensagem de erro se os campos não estiverem preenchidos
-            javax.swing.JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
-        } else {
-            // Se a validação passar, você pode prosseguir com o login
-            GuardaDados();
-            try {
-                loginType = DatabaseManager.login(email, senha);
-    
-                if (loginType == null || loginType.equals("Usuário não encontrado")) {
-                    JOptionPane.showMessageDialog(this, "E-mail e/ou senha incorretos ou inexistentes! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                JOptionPane.showMessageDialog(this, "Login realizado como: " + loginType + "\n Seja Bem-Vindo!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-                if (loginType.equals("Recrutador")) {
-                    formRecrutador telaRecruiter = new formRecrutador();
-                    telaRecruiter.setVisible(true);
-                } else { 
-                    formPerfilCandidato perfilCandidato = new formPerfilCandidato("Candidato", email); 
-                    perfilCandidato.setVisible(true);
-                }
-    
-                this.dispose(); // Fecha a tela de login
-
-            } catch (Exception e) {
-                e.printStackTrace(); 
-                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao tentar fazer login.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnLoginActionPerformed
-    
-    private boolean ValidacaoLogin() { 
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }  
         
+        GuardaDados();
+        
+        if (!validacao.ValidaEmail(email)){
+            JOptionPane.showMessageDialog(this, "Formato de e-mail invalido! Digite um e-mail valido.", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE); 
+        }    
+        
+        try {
+            loginType = DatabaseManager.login(email, senha);
+    
+            if (loginType == null || loginType.equals("Usuário não encontrado")) {
+                JOptionPane.showMessageDialog(this, "E-mail e/ou senha incorretos ou inexistentes! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            JOptionPane.showMessageDialog(this, "Login realizado como: " + loginType + "\n Seja Bem-Vindo!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            if (loginType.equals("Recrutador")) {
+                formRecrutador telaRecruiter = new formRecrutador();
+                telaRecruiter.setVisible(true);
+            } else { 
+                formPerfilCandidato perfilCandidato = new formPerfilCandidato("Candidato", email); 
+                perfilCandidato.setVisible(true);
+            }
+    
+            this.dispose(); // Fecha a tela de login
+
+        } catch (Exception e) {
+            e.printStackTrace(); 
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao tentar fazer login.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } 
+    }//GEN-LAST:event_btnLoginActionPerformed
+     
+    private boolean ValidacaoLogin() { 
+        if (tfEmail.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Campo E-mail é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } 
         if (tfSenha.getPassword().length == 0) {
             JOptionPane.showMessageDialog(this, "Campo Senha é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if (tfEmail.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo Usuário é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        } 
         return true; 
     }
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

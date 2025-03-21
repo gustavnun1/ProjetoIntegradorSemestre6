@@ -4,6 +4,7 @@
  */
 package com.eleva.eleva.View;
 
+import com.eleva.eleva.Controller.DatabaseManager;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -34,6 +36,9 @@ public class formPerfilCandidato extends javax.swing.JFrame {
     public static String Usuario;
     public static String emailUsuario;
     String curriculoCandidato;
+    String CPF;
+    String filename;
+    String senhaAnterior;
     
     public formPerfilCandidato(String tipoUsuario, String email) {
         initComponents();
@@ -64,8 +69,6 @@ public class formPerfilCandidato extends javax.swing.JFrame {
         tfEmail = new javax.swing.JTextField();
         tfNome = new javax.swing.JTextField();
         tfExperiencia = new javax.swing.JTextField();
-        tfContato = new javax.swing.JTextField();
-        tfCEP = new javax.swing.JTextField();
         tfEndereco = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -78,6 +81,11 @@ public class formPerfilCandidato extends javax.swing.JFrame {
         tfResumo = new javax.swing.JTextPane();
         lblImagem = new javax.swing.JLabel();
         btnCurriculo = new javax.swing.JButton();
+        btnEditarCurriculo = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        tfCEP = new javax.swing.JFormattedTextField();
+        tfContato = new javax.swing.JFormattedTextField();
+        tfSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,7 +115,7 @@ public class formPerfilCandidato extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnSair);
-        btnSair.setBounds(410, 490, 70, 30);
+        btnSair.setBounds(700, 500, 70, 30);
 
         btnEdicao.setBackground(new java.awt.Color(229, 229, 229));
         btnEdicao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -121,7 +129,7 @@ public class formPerfilCandidato extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnEdicao);
-        btnEdicao.setBounds(340, 430, 210, 50);
+        btnEdicao.setBounds(630, 440, 210, 50);
 
         tfEmail.setBackground(new java.awt.Color(234, 236, 238));
         tfEmail.setForeground(new java.awt.Color(0, 0, 0));
@@ -143,20 +151,6 @@ public class formPerfilCandidato extends javax.swing.JFrame {
         tfExperiencia.setEnabled(false);
         jPanel3.add(tfExperiencia);
         tfExperiencia.setBounds(320, 290, 260, 40);
-
-        tfContato.setBackground(new java.awt.Color(234, 236, 238));
-        tfContato.setForeground(new java.awt.Color(0, 0, 0));
-        tfContato.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tfContato.setEnabled(false);
-        jPanel3.add(tfContato);
-        tfContato.setBounds(30, 360, 260, 40);
-
-        tfCEP.setBackground(new java.awt.Color(234, 236, 238));
-        tfCEP.setForeground(new java.awt.Color(0, 0, 0));
-        tfCEP.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tfCEP.setEnabled(false);
-        jPanel3.add(tfCEP);
-        tfCEP.setBounds(320, 360, 260, 40);
 
         tfEndereco.setBackground(new java.awt.Color(234, 236, 238));
         tfEndereco.setForeground(new java.awt.Color(0, 0, 0));
@@ -238,39 +232,84 @@ public class formPerfilCandidato extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnCurriculo);
-        btnCurriculo.setBounds(200, 140, 120, 30);
+        btnCurriculo.setBounds(190, 140, 120, 30);
+
+        btnEditarCurriculo.setBackground(new java.awt.Color(229, 229, 229));
+        btnEditarCurriculo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEditarCurriculo.setForeground(new java.awt.Color(51, 51, 51));
+        btnEditarCurriculo.setText("Editar Curriculo");
+        btnEditarCurriculo.setBorder(null);
+        btnEditarCurriculo.setBorderPainted(false);
+        btnEditarCurriculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarCurriculoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnEditarCurriculo);
+        btnEditarCurriculo.setBounds(190, 20, 120, 30);
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Senha");
+        jLabel10.setToolTipText("");
+        jPanel3.add(jLabel10);
+        jLabel10.setBounds(30, 410, 120, 16);
+
+        tfCEP.setBackground(new java.awt.Color(234, 237, 239));
+        tfCEP.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tfCEP.setForeground(new java.awt.Color(0, 0, 0));
+        try {
+            tfCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel3.add(tfCEP);
+        tfCEP.setBounds(320, 360, 260, 40);
+
+        tfContato.setBackground(new java.awt.Color(234, 237, 239));
+        tfContato.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tfContato.setForeground(new java.awt.Color(0, 0, 0));
+        try {
+            tfContato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel3.add(tfContato);
+        tfContato.setBounds(30, 360, 260, 40);
+
+        tfSenha.setBackground(new java.awt.Color(234, 236, 238));
+        tfSenha.setForeground(new java.awt.Color(0, 0, 0));
+        tfSenha.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.add(tfSenha);
+        tfSenha.setBounds(30, 430, 260, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 972, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 693, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 16, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void setaImagem(){
-        ImageIcon icon = new ImageIcon("C:/Users/gusta/OneDrive/Documentos/NetBeansProjects/Eleva/src/main/java/images/picpeople_9291864 (2).png");
+        ImageIcon icon = new ImageIcon("C:/Users/gusta/OneDrive/Documentos/NetBeansProjects/Eleva/src/main/java/images/user.png");
 
         // Redimensionar a imagem para caber no JLabel
         Image image = icon.getImage().getScaledInstance(lblImagem.getWidth(), lblImagem.getHeight(), Image.SCALE_SMOOTH);
@@ -280,8 +319,10 @@ public class formPerfilCandidato extends javax.swing.JFrame {
     private void VerificaVisivel(){
         if (Usuario.equals("Recrutador")){
             btnEdicao.setVisible(false); // Oculta o botão
+            btnEditarCurriculo.setVisible(false);
         }else if (Usuario.equals("Candidato")){
             btnCurriculo.setVisible(false); // Oculta o botão
+            btnEditarCurriculo.setVisible(true);
             tfNome.setEnabled(true);  
             tfEmail.setEnabled(true);  
             tfContato.setEnabled(true);  
@@ -297,7 +338,7 @@ public class formPerfilCandidato extends javax.swing.JFrame {
     String user = "AdministradorEleva";
     String password = "admin123";
 
-    String sql = "SELECT Nome, Email, Contato, Endereco, Area_Atuacao, Resumo_profissional, CEP, Curriculo FROM eCandidatos WHERE Email = ?"; 
+    String sql = "SELECT Nome, Senha, Email, CPF, Contato, Endereco, Area_Atuacao, Resumo_profissional, CEP, Curriculo FROM eCandidatos WHERE Email = ?"; 
 
     try (Connection conn = DriverManager.getConnection(url, user, password);
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -308,6 +349,9 @@ public class formPerfilCandidato extends javax.swing.JFrame {
 
             if (rs.next()) { // Verifica se há resultados antes de acessar os campos
                 tfNome.setText(rs.getString("Nome"));
+                tfSenha.setText(rs.getString("Senha"));
+                senhaAnterior = new String(tfSenha.getPassword());
+                CPF = rs.getString("CPF");
                 tfEmail.setText(rs.getString("Email"));
                 tfContato.setText(rs.getString("Contato"));
                 tfEndereco.setText(rs.getString("Endereco"));
@@ -326,7 +370,15 @@ public class formPerfilCandidato extends javax.swing.JFrame {
     
     
     private void btnEdicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdicaoActionPerformed
-         
+        String senhaCorreta = JOptionPane.showInputDialog(this, "Para alterar os dados, digite sua senha abaixo.", "Atenção", JOptionPane.OK_OPTION);
+        String senhaAtualizada = new String(tfSenha.getPassword());
+        if (senhaCorreta != null && senhaCorreta.equals(senhaAnterior)) {
+            DatabaseManager.updateCandidatos(tfExperiencia.getText(), tfCEP.getText(), CPF, tfContato.getText(), tfEmail.getText(), tfEndereco.getText(), senhaAtualizada, tfResumo.getText(), tfNome.getText(), filename);
+            JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } 
+        else{
+            JOptionPane.showMessageDialog(this, "Senha incorreta ou incompleta! Tente Novamente", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEdicaoActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -369,8 +421,30 @@ public class formPerfilCandidato extends javax.swing.JFrame {
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(this, "Erro ao baixar o arquivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        };
+        };                
     }//GEN-LAST:event_btnCurriculoActionPerformed
+
+    private void btnEditarCurriculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCurriculoActionPerformed
+        JFileChooser chooser = new JFileChooser();
+
+        // Define um filtro para aceitar apenas arquivos PDF
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos PDF (*.pdf)", "pdf");
+        chooser.setFileFilter(filter);
+
+        // Abre o seletor de arquivos
+        int returnValue = chooser.showOpenDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+    
+            // Garante que o arquivo selecionado seja realmente um PDF
+            if (f.getName().toLowerCase().endsWith(".pdf")) {
+                filename = f.getAbsolutePath(); 
+            } else {
+               JOptionPane.showMessageDialog(null, "Por favor, selecione um arquivo PDF válido.", "Arquivo inválido", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnEditarCurriculoActionPerformed
   
     /**
      * @param args the command line arguments
@@ -412,8 +486,10 @@ public class formPerfilCandidato extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCurriculo;
     private javax.swing.JButton btnEdicao;
+    private javax.swing.JButton btnEditarCurriculo;
     private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -425,12 +501,13 @@ public class formPerfilCandidato extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImagem;
-    private javax.swing.JTextField tfCEP;
-    private javax.swing.JTextField tfContato;
+    private javax.swing.JFormattedTextField tfCEP;
+    private javax.swing.JFormattedTextField tfContato;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfExperiencia;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextPane tfResumo;
+    private javax.swing.JPasswordField tfSenha;
     // End of variables declaration//GEN-END:variables
 }

@@ -149,8 +149,8 @@ public class DatabaseManager {
     
     
     /////////////////////////////////UPDATE//////////////////////////////////////
-    public static void updateCandidatos(int id, String areaAtuacao, String cep, String cpf, String contato, String email, String endereco, String senha, String resumoPessoal, String usuario) {
-        String sqlUpdate = "UPDATE eCandidatos SET AreaAtuacao = ?, CEP = ?, CPF = ?, Contato = ?, Email = ?, Endereco = ?, Senha = ?, ResumoPessoal = ?, Usuario = ? WHERE ID = ?";
+    public static void updateCandidatos(String areaAtuacao, String cep, String cpf, String contato, String email, String endereco, String senha, String resumoPessoal, String usuario, String curriculo) {
+        String sqlUpdate = "UPDATE eCandidatos SET Area_Atuacao = ?, CEP = ?, CPF = ?, Contato = ?, Email = ?, Endereco = ?, Senha = ?, Resumo_Profissional = ?, NOME = ?, Curriculo = ? WHERE CPF = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sqlUpdate)) {
             pstmt.setString(1, areaAtuacao);
@@ -161,8 +161,9 @@ public class DatabaseManager {
             pstmt.setString(6, endereco);
             pstmt.setString(7, senha);
             pstmt.setString(8, resumoPessoal);
-            pstmt.setString(9, usuario);
-            pstmt.setInt(10, id);
+            pstmt.setString(9, usuario); 
+            pstmt.setString(10, curriculo); 
+            pstmt.setString(11, cpf);
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
                 System.out.println("Registro atualizado com sucesso.");
@@ -176,18 +177,19 @@ public class DatabaseManager {
     
     public static void updateEmpresa(String nome_usuario, String email,String SENHA ,String CNPJ , String Nome_Empresa , String CEP , String Endereco ,
     String Area_Atuacao , String Resumo) {
-        String sqlUpdate = "UPDATE eRecrutadores SET AreaAtuacao = ?, CEP = ?, CPF = ?, Contato = ?, Email = ?, Endereco = ?, Senha = ?, ResumoPessoal = ?, Usuario = ? WHERE ID = ?";
+        String sqlUpdate = "UPDATE eRecrutadores SET AreaAtuacao = ?, CEP = ?, CNPJ = ?, Email = ?, Empresa = ?, Endereco = ?, Senha = ?, ResumoPessoal = ?, Usuario = ? WHERE CNPJ = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sqlUpdate)) {
-            pstmt.setString(1, nome_usuario);
-            pstmt.setString(2, email);
-            pstmt.setString(3, SENHA);
-            pstmt.setString(4, CNPJ);
+            pstmt.setString(1, Area_Atuacao);
+            pstmt.setString(2, CEP);
+            pstmt.setString(3, CNPJ);
+            pstmt.setString(4, email);
             pstmt.setString(5, Nome_Empresa);
-            pstmt.setString(6, CEP);
-            pstmt.setString(7, Endereco);
-            pstmt.setString(8, Area_Atuacao);
-            pstmt.setString(9, Resumo);  
+            pstmt.setString(6, Endereco);
+            pstmt.setString(7, SENHA);
+            pstmt.setString(8, Resumo);
+            pstmt.setString(9, nome_usuario);  
+            pstmt.setString(10, CNPJ);
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
                 System.out.println("Registro atualizado com sucesso.");

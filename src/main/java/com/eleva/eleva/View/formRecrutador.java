@@ -38,6 +38,7 @@ public class formRecrutador extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnSair = new javax.swing.JButton();
+        btnSair1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCandidatos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -69,6 +70,19 @@ public class formRecrutador extends javax.swing.JFrame {
         });
         jPanel2.add(btnSair);
         btnSair.setBounds(850, 20, 110, 60);
+
+        btnSair1.setBackground(new java.awt.Color(53, 53, 140));
+        btnSair1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnSair1.setText("Editar Perfil");
+        btnSair1.setToolTipText("");
+        btnSair1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnSair1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSair1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnSair1);
+        btnSair1.setBounds(660, 20, 170, 60);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 970, 100);
@@ -168,6 +182,13 @@ public class formRecrutador extends javax.swing.JFrame {
         this.dispose(); 
         }
     }//GEN-LAST:event_tbCandidatosMouseClicked
+
+    private void btnSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair1ActionPerformed
+        formPerfilEmpresa empresa = new formPerfilEmpresa();
+        empresa.setVisible(true); 
+        
+        this.dispose(); 
+    }//GEN-LAST:event_btnSair1ActionPerformed
     
     
     private void carregarDados() {
@@ -238,6 +259,7 @@ public class formRecrutador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnSair1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
