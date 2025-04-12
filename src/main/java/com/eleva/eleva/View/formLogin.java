@@ -18,14 +18,12 @@ public class formLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form formLogin
-     */
-    private classValidacao validacao;
+     */ 
     String email;
     String senha;
     String loginType; 
     public formLogin() {
-        initComponents(); 
-        validacao = new classValidacao(); // Inicializa o objeto validacao
+        initComponents();  
     }
 
     /**
@@ -172,14 +170,14 @@ public class formLogin extends javax.swing.JFrame {
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
       
-        if (!ValidacaoLogin()) {
+        if (!classValidacao.ValidacaoLogin(tfEmail, tfSenha)) {
             // Exibe uma mensagem de erro se os campos não estiverem preenchidos
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
         }  
         
         GuardaDados();
         
-        if (!validacao.ValidaEmail(email)){
+        if (!classValidacao.ValidaEmail(email)){
             JOptionPane.showMessageDialog(this, "Formato de e-mail invalido! Digite um e-mail valido.", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE); 
         }    
         
@@ -208,17 +206,7 @@ public class formLogin extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_btnLoginActionPerformed
      
-    private boolean ValidacaoLogin() { 
-        if (tfEmail.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo E-mail é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        } 
-        if (tfSenha.getPassword().length == 0) {
-            JOptionPane.showMessageDialog(this, "Campo Senha é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true; 
-    }
+    
     /**
      * @param args the command line arguments
      */

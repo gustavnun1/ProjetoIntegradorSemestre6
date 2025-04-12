@@ -16,8 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Gustavo
  */
 public class formCadastro extends javax.swing.JFrame {
-    
-    private classValidacao valida;
+     
     String sAreaAtuacao;
     String sCEP;
     String sCPF;
@@ -381,15 +380,21 @@ public class formCadastro extends javax.swing.JFrame {
     }
      
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        if (!valida.ValidacaoCadastroFuncionario(tfAtuacao, tfCEP, tfCPF, 
+        if (!classValidacao.ValidacaoCadastroFuncionario(tfAtuacao, tfCEP, tfCPF, 
         tfContato, tfEmail, tfEndereco, tfResumo, tfSenha, tfSenhaConfirma)) { 
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
         } 
         
-        if (!valida.ValidaEmail(tfEmail.getText())){
+        if (!classValidacao.ValidaEmail(tfEmail.getText())){
             JOptionPane.showMessageDialog(this, "Digite um endereço de e-mail valido!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
+        
         GuardarDados();
+        
+        if (!classValidacao.ValidaLength(sEmail, sSenha, sAreaAtuacao, sEndereco, sResumoPessoal, null)){
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        
         try {
             DatabaseManager.insertCandidatos(sAreaAtuacao, sCEP, sCPF, sContato, sEmail, sEndereco, sSenha, sResumoPessoal, sNomeUsuario, pathCurriculo);
             javax.swing.JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!", "Sucesso", javax.swing.JOptionPane.INFORMATION_MESSAGE);

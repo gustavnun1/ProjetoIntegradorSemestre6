@@ -22,13 +22,13 @@ public class classValidacao {
     
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     
-    public boolean ValidaEmail(String emailValidacao){
+    public static boolean ValidaEmail(String emailValidacao){        
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
         Matcher matcher = pattern.matcher(emailValidacao);
         return matcher.matches();
     }
     
-    public boolean ValidacaoCadastroFuncionario(
+    public static boolean ValidacaoCadastroFuncionario(
         JTextField tfAtuacao, JTextField tfCEP, JTextField tfCPF, 
         JTextField tfContato, JTextField tfEmail, JTextField tfEndereco, 
         JTextArea tfResumo, JPasswordField tfSenha, JPasswordField tfSenhaConfirma
@@ -98,7 +98,7 @@ public class classValidacao {
         JOptionPane.showMessageDialog(null, message, "Erro", JOptionPane.ERROR_MESSAGE);
     }
  
-    public boolean ValidacaoCadastroRecrutador(
+    public static boolean ValidacaoCadastroRecrutador(
         JTextField tfAreaAtuacao, JTextField tfCEP, JTextField tfCNPJ,
         JTextField tfResponsavel, JTextField tfEmail, JTextField tfEndereco,
         JTextArea tfResumo, JPasswordField tfSenha, JPasswordField tfSenhaConfirma
@@ -148,6 +148,52 @@ public class classValidacao {
             return false;
         }
 
+        return true;
+    }
+    
+    public static boolean ValidacaoLogin(JTextField email, JPasswordField senha) { 
+        if (email.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo E-mail é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } 
+        if (senha.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(null, "Campo Senha é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true; 
+    }
+    
+    public static boolean ValidaLength(String Email, String Senha, String Atuacao, String Endereco, String Resumo, String Empresa){
+        
+        if (Email.length() > 150) {
+           JOptionPane.showMessageDialog(null, "Campo e-mail com mais caracteres que o limite! Reduza ou insira outro e-mail", "Erro", JOptionPane.ERROR_MESSAGE);
+           return false; 
+        }
+        
+        if (Senha.length() > 50) {
+           JOptionPane.showMessageDialog(null, "Senha maior que o limite. Reduza sua senha!", "Erro", JOptionPane.ERROR_MESSAGE);
+           return false; 
+        }
+        
+        if (Atuacao.length() > 100) {
+           JOptionPane.showMessageDialog(null, "Área de Atuação maior que o limite. Diminua seu resumo!", "Erro", JOptionPane.ERROR_MESSAGE);
+           return false; 
+        }
+        
+        if (Endereco.length() > 200) {
+           JOptionPane.showMessageDialog(null, "Endereço maior que o permitido, abrevie ou selecione outro endereço!", "Erro", JOptionPane.ERROR_MESSAGE);
+           return false; 
+        }
+        
+        if (Resumo.length() > 300) {
+           JOptionPane.showMessageDialog(null, "Resumo maior que o permitido, reduza!", "Erro", JOptionPane.ERROR_MESSAGE);
+           return false; 
+        }
+        
+        if (Empresa.length() > 100) {
+           JOptionPane.showMessageDialog(null, "Empresa com nome maior que o permitido! Abrevie ou altere o nome.", "Erro", JOptionPane.ERROR_MESSAGE);
+           return false; 
+        }
         return true;
     }
  
